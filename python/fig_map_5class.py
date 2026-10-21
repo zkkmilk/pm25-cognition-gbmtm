@@ -1,5 +1,7 @@
 import json
-import matplotlib; matplotlib.use("Agg")
+import matplotlib
+import matplotlib.colors
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
