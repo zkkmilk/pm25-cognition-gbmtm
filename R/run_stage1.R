@@ -220,7 +220,7 @@ df_selected <- df_selected %>%
   filter(all(match_source == "城市匹配")) %>%
   ungroup()
 final_n <- n_distinct(df_selected$ID)
-log_msg(sprintf("    仅城市匹配: %d (剔除 %d)",
+log_msg(sprintf("    city-match only: %d (excluded %d)",
   final_n, n_cog_pm - final_n))
 log_msg(sprintf("    final: %d individuals, %d rows", final_n, nrow(df_selected)))
 

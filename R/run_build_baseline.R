@@ -1,0 +1,12 @@
+initial_options <- commandArgs(trailingOnly = FALSE); file_arg <- initial_options[grep("--file=", initial_options)]; SCRIPTS_DIR <- if (length(file_arg) > 0) normalizePath(dirname(sub("--file=", "", file_arg[1]))) else normalizePath(".")
+source(file.path(SCRIPTS_DIR, "config.R"))
+b <- read.csv(file.path(DIRS$data_processed, "baseline_with_trajectory.csv"), stringsAsFactors = FALSE)
+a <- read.csv(fp("final_trajectory_assignment.csv"), stringsAsFactors = FALSE)
+b$ID <- sprintf("%012.0f", as.numeric(b$ID)); a$ID <- sprintf("%012.0f", as.numeric(a$ID))
+drop <- intersect(c("trajectory_group", "posterior_prob"), names(b))
+b <- b[, setdiff(names(b), c("trajectory_group", "posterior_prob", "trajectory_group.x", "trajectory_group.y", "posterior_prob.x", "posterior_prob.y"))]
+out <- merge(b, a[, c("ID", "trajectory_group", "posterior_prob")], by = "ID", all.x = TRUE)
+stopifnot(nrow(out) == nrow(b), sum(is.na(out$trajectory_group)) == 0)
+dir.create(IN, showWarnings = FALSE, recursive = TRUE)
+write.csv(out, file.path(IN, "baseline_5class.csv"), row.names = FALSE, na = "NA")
+logmsg(sprintf("baseline_5class.csv: %d rows", nrow(out)))

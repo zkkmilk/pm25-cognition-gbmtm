@@ -71,7 +71,7 @@ n_unmatched_ind <- sum(is.na(comm_to_region$region))
 if (n_unmatched_comm > 0) {
   log_msg(sprintf("warning: %d 个 communityID 未匹配到 PSU, 涉及 %d 人",
     n_unmatched_comm, n_unmatched_ind))
-  log_msg(sprintf("  未匹配 communityID: %s",
+  log_msg(sprintf("  unmatched communityIDs: %s",
     paste(head(unmatched$communityID, 10), collapse = ", ")))
 }
 
@@ -83,16 +83,16 @@ log_msg(sprintf("region matched: %d / %d (%.1f%%)",
                 n_merged, nrow(baseline_new), 100 * n_merged / nrow(baseline_new)))
 
 log_msg("Region distribution:")
-log_msg(sprintf("  东部(参照): %d (%.1f%%)",
-  sum(baseline_new$region == "东部", na.rm = TRUE),
-  100 * sum(baseline_new$region == "东部", na.rm = TRUE) / n_merged))
-log_msg(sprintf("  中部: %d (%.1f%%)",
+log_msg(sprintf("  East (ref): %d (%.1f%%)",
+  sum(baseline_new$region_f == "东部", na.rm = TRUE),
+  100 * sum(baseline_new$region_f == "东部", na.rm = TRUE) / n_merged))
+log_msg(sprintf("  Central: %d (%.1f%%)",
   sum(baseline_new$region == "中部", na.rm = TRUE),
   100 * sum(baseline_new$region == "中部", na.rm = TRUE) / n_merged))
-log_msg(sprintf("  西部: %d (%.1f%%)",
+log_msg(sprintf("  West: %d (%.1f%%)",
   sum(baseline_new$region == "西部", na.rm = TRUE),
   100 * sum(baseline_new$region == "西部", na.rm = TRUE) / n_merged))
-log_msg(sprintf("  东北: %d (%.1f%%)",
+log_msg(sprintf("  Northeast: %d (%.1f%%)",
   sum(baseline_new$region == "东北", na.rm = TRUE),
   100 * sum(baseline_new$region == "东北", na.rm = TRUE) / n_merged))
 

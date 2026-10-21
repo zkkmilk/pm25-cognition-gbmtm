@@ -9,9 +9,9 @@ SCRIPT_DIR <- tryCatch({
     normalizePath(dirname(sys.frame(1)$ofile))
   }
 }, error = function(e) {
-  normalizePath(file.path(getwd(), "sandbox", "scripts"))
+  normalizePath(file.path(getwd(), "R"))
 })
-SANDBOX_ROOT <- dirname(SCRIPT_DIR)
+OUT_ROOT <- dirname(SCRIPT_DIR)
 
 .find_project_root <- function(start) {
   d <- normalizePath(start, winslash = "/", mustWork = FALSE)
@@ -21,7 +21,7 @@ SANDBOX_ROOT <- dirname(SCRIPT_DIR)
     if (identical(p, d)) break
     d <- p
   }
-  normalizePath(file.path(start, "..", "..", "..", ".."), winslash = "/", mustWork = FALSE)
+  normalizePath(file.path(start, ".."), winslash = "/", mustWork = FALSE)
 }
 PROJECT_ROOT <- .find_project_root(SCRIPT_DIR)
 
@@ -50,13 +50,13 @@ PATHS <- list(
 )
 
 DIRS <- list(
-  data_processed = file.path(SANDBOX_ROOT, "output", "data"),
-  tables         = file.path(SANDBOX_ROOT, "output", "tables"),
-  figures        = file.path(SANDBOX_ROOT, "output", "figures"),
-  models         = file.path(SANDBOX_ROOT, "output", "models"),
-  logs           = file.path(SANDBOX_ROOT, "output", "logs"),
-  qc_reports     = file.path(SANDBOX_ROOT, "output", "qc_reports"),
-  imputed        = file.path(SANDBOX_ROOT, "output", "imputed")
+  data_processed = file.path(OUT_ROOT, "output", "data"),
+  tables         = file.path(OUT_ROOT, "output", "tables"),
+  figures        = file.path(OUT_ROOT, "output", "figures"),
+  models         = file.path(OUT_ROOT, "output", "models"),
+  logs           = file.path(OUT_ROOT, "output", "logs"),
+  qc_reports     = file.path(OUT_ROOT, "output", "qc_reports"),
+  imputed        = file.path(OUT_ROOT, "output", "imputed")
 )
 for (d in DIRS) dir.create(d, showWarnings = FALSE, recursive = TRUE)
 
@@ -232,7 +232,7 @@ get_region <- function(province_chinese) {
 
 log_msg("Config loaded: REF=2, region in MICE only.")
 log_msg(paste("Project root:", PROJECT_ROOT))
-log_msg(paste("output:", SANDBOX_ROOT))
+log_msg(paste("output:", OUT_ROOT))
 log_msg("Seed: 2026")
 
 LAB <- c(sex="Sex (male)", residence="Urban residence", smoking="Current smoking",

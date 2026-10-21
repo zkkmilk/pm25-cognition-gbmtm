@@ -10,6 +10,8 @@ Participant-level data are not distributed in this repository.
 - CHAP PM2.5 dataset: https://data.tpdc.ac.cn (Wei et al. 2021, Remote Sensing of Environment 252, 112136).
 - Province boundaries for Figure 3 (download to `data/china_provinces_datav.json`): https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
 
+The Python figure script (`python/fig_map_5class.py`) reads `tables/` and `data/` relative to the repository root; run it from the repo root after the R pipeline has written the region composition table.
+
 Place the required CHARLS files under `data/charls/` following the layout expected by `R/config.R` (see the `PATHS` list), and the merged city-year PM2.5 file at `data/pollution.xlsx`. Environment variables `CHARLS_DIR` and `POLLUTION_FILE` can override these locations.
 
 ## Requirements
@@ -29,6 +31,7 @@ Run order (scripts in `R/`):
 | `run_group_profile.R` | group profile table | Section 3.3 (class sizes, mean PM2.5, fitted trajectories) |
 | `run_regional.R` | region composition table | Section 3.3 (four economic regions) |
 | `run_stage3a_baseline.R` / `run_stage3a_add_region.R` | baseline table with Bonferroni-corrected tests | Table 2 |
+| `run_build_baseline.R` | `baseline_5class.csv` (group assignment joined onto baseline covariates; IDs zero-padded to 12 digits) | input for Sections 3.1, 3.3-3.6 |
 | `run_stage3c.R` | missingness assessment, MICE (m = 10), imputation density figure | Section 3.4, Figure S1 |
 | `run_stage3d.R` | multinomial logistic models 1-3, forest plot | Section 3.5, Figure 4, Table S2 |
 | `run_stage3e.R` | sensitivity analysis in the high-confidence subsample (posterior probability >= 0.70) | Section 3.6 |
