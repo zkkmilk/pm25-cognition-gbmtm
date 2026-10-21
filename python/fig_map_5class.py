@@ -1,4 +1,3 @@
-"""Fig 3. Source: DataV 100000_full boundaries (incl. 100000_JD South China Sea islands)"""
 import json
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
