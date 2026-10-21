@@ -27,11 +27,13 @@ Run order (scripts in `R/`):
 | --- | --- | --- |
 | `run_stage1.R` | `trajectory_long.csv` | cohort construction (age >= 45, >= 3 valid waves on both indicators) |
 | `run_stage2.R` | `model_comparison.csv`, `gbmtm_ng{2..6}.rds`, `final_trajectory_assignment.csv`, `group_reordering.csv` | Table 1; group labels G1-G5 ordered by z(mean PM2.5) - z(cognitive change) |
-| `run_descriptives.R` | sample and wave trend tables | Section 3.1 |
 | `run_group_profile.R` | group profile table | Section 3.3 (class sizes, mean PM2.5, fitted trajectories) |
+| `run_stage3a_baseline.R` | baseline characteristics by group | input for Table 2 (without region) |
+| `run_stage3a_add_region.R` | `baseline_with_region.csv` | adds the four economic regions (used in Figure 3) |
+| `run_build_baseline.R` | `baseline_5class.csv` (group assignment joined onto region-enriched baseline; IDs zero-padded to 12 digits) | input for Sections 3.1, 3.3-3.6 |
+| `run_descriptives.R` | sample and wave trend tables | Section 3.1 |
 | `run_regional.R` | region composition table | Section 3.3 (four economic regions) |
-| `run_stage3a_baseline.R` / `run_stage3a_add_region.R` | baseline table with Bonferroni-corrected tests | Table 2 |
-| `run_build_baseline.R` | `baseline_5class.csv` (group assignment joined onto baseline covariates; IDs zero-padded to 12 digits) | input for Sections 3.1, 3.3-3.6 |
+| `run_baseline_table.R` | Table 2, Bonferroni-corrected tests | Section 3.4 |
 | `run_stage3c.R` | missingness assessment, MICE (m = 10), imputation density figure | Section 3.4, Figure S1 |
 | `run_stage3d.R` | multinomial logistic models 1-3, forest plot | Section 3.5, Figure 4, Table S2 |
 | `run_stage3e.R` | sensitivity analysis in the high-confidence subsample (posterior probability >= 0.70) | Section 3.6 |

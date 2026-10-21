@@ -1,6 +1,6 @@
 initial_options <- commandArgs(trailingOnly = FALSE); file_arg <- initial_options[grep("--file=", initial_options)]; SCRIPTS_DIR <- if (length(file_arg) > 0) normalizePath(dirname(sub("--file=", "", file_arg[1]))) else normalizePath(".")
 source(file.path(SCRIPTS_DIR, "config.R"))
-b <- read.csv(file.path(DIRS$data_processed, "baseline_with_trajectory.csv"), stringsAsFactors = FALSE)
+b <- read.csv(file.path(DIRS$data_processed, "baseline_with_region.csv"), stringsAsFactors = FALSE)
 a <- read.csv(fp("final_trajectory_assignment.csv"), stringsAsFactors = FALSE)
 b$ID <- sprintf("%012.0f", as.numeric(b$ID)); a$ID <- sprintf("%012.0f", as.numeric(a$ID))
 drop <- intersect(c("trajectory_group", "posterior_prob"), names(b))
