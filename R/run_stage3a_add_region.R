@@ -84,8 +84,8 @@ log_msg(sprintf("region matched: %d / %d (%.1f%%)",
 
 log_msg("Region distribution:")
 log_msg(sprintf("  East (ref): %d (%.1f%%)",
-  sum(baseline_new$region_f == "东部", na.rm = TRUE),
-  100 * sum(baseline_new$region_f == "东部", na.rm = TRUE) / n_merged))
+  sum(baseline_new$region == "东部", na.rm = TRUE),
+  100 * sum(baseline_new$region == "东部", na.rm = TRUE) / n_merged))
 log_msg(sprintf("  Central: %d (%.1f%%)",
   sum(baseline_new$region == "中部", na.rm = TRUE),
   100 * sum(baseline_new$region == "中部", na.rm = TRUE) / n_merged))
