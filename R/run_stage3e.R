@@ -3,7 +3,7 @@ initial_options <- commandArgs(trailingOnly = FALSE); file_arg <- initial_option
 source(file.path(SCRIPTS_DIR, "config.R"))
 
 log_msg("============================================================")
-log_msg("Stage 3E [Sandbox]: Sensitivity (pp>=0.70 filter)")
+log_msg("Stage 3E: Sensitivity (pp>=0.70 filter)")
 log_msg("============================================================")
 
 M <- STAGE3$mice_m; REF <- STAGE3$reference_group
@@ -164,7 +164,7 @@ log_msg(sprintf("  Significant (Bonferroni p_adj<0.05): %d/%d", sum(sens_df$sign
 
 log_msg("6. Comparing with main analysis...")
 main_df <- read.csv(file.path(DIRS$tables, "multinomial_results.csv"))
-main_m3 <- main_df[main_df$model == "Model3_全模型",
+main_m3 <- main_df[main_df$model == "Model3_full model",
   c("outcome","variable","OR","CI_low","CI_high","p_value","p_adj")]
 names(main_m3) <- c("outcome","variable","OR_main","CI_low_main","CI_high_main","p_main","p_adj_main")
 merged <- merge(sens_df, main_m3, by = c("outcome","variable"))
@@ -176,7 +176,7 @@ n_dir <- sum(merged$direction_change); n_lost <- sum(merged$sig_lost); n_gain <-
 log_msg(sprintf("  Direction changes: %d, Sig lost: %d, Sig gained: %d (Bonferroni-matched)", n_dir, n_lost, n_gain))
 write.csv(merged, file.path(DIRS$tables, "sensitivity_pp_filter.csv"), row.names = FALSE)
 
-qa <- c("# Stage 3E QA: Sensitivity Analysis [Sandbox]",
+qa <- c("# Stage 3E QA: Sensitivity Analysis",
         "", paste0("**Time**: ", format(Sys.time())),
         paste0("**Filter**: pp>=0.70, ", n_filt, "/", n_full),
         paste0("**Filtered VIF>5**: ", nrow(high_vif_f)),
@@ -186,12 +186,12 @@ qa <- c("# Stage 3E QA: Sensitivity Analysis [Sandbox]",
         sprintf("Sig lost: %d", n_lost),
         sprintf("Sig gained: %d", n_gain),
         "",
-        "判定标准：与主分析同口径（Bonferroni，72 检验）。",
-        "灵敏性子样本更小，部分主分析显著项跌出阈值属预期；关键判据为",
-        "方向是否反转、以及是否出现主分析中不存在的新显著项。",
+        "Criteria identical to the main analysis（Bonferroni，72 tests）。",
+        "The sensitivity subsample is smaller, so some main-analysis hits falling below threshold are expected; key criteria are",
+        "whether directions reverse and whether new significant associations emerge.",
         "",
         if (n_dir == 0 && n_gain == 0)
           "### Conclusion: STABLE (no direction reversal, no new significance)"
         else "### Needs review")
 writeLines(qa, file.path(DIRS$qc_reports, "stage3e_sensitivity_qc.md"))
-log_msg("Stage 3E [Sandbox] complete")
+log_msg("Stage 3E complete")

@@ -3,7 +3,7 @@ initial_options <- commandArgs(trailingOnly = FALSE); file_arg <- initial_option
 source(file.path(SCRIPTS_DIR, "config.R"))
 
 log_msg("============================================================")
-log_msg("Stage 3C [Sandbox]: Missing Data Assessment + MICE Imputation")
+log_msg("Stage 3C: Missing Data Assessment + MICE Imputation")
 log_msg("============================================================")
 
 bl <- read.csv(file.path(DIRS$data_processed, "baseline_with_region.csv"), stringsAsFactors = FALSE)
@@ -72,7 +72,7 @@ ds1 <- read.csv(file.path(DIRS$imputed, "imputed_m01.csv"))
 n_miss <- sum(is.na(ds1))
 log_msg(sprintf("Missing in imputed m01: %d (should be 0)", n_miss))
 
-qa <- c("# Stage 3C QA: MICE Imputation [Sandbox]",
+qa <- c("# Stage 3C QA: MICE Imputation",
         "", paste0("**Time**: ", format(Sys.time())),
         paste0("**Method**: mice (pmm/logreg), m = ", STAGE3$mice_m, ", maxit = ", STAGE3$mice_maxit),
         paste0("**Variables imputed**: ", length(mice_vars)),
@@ -80,7 +80,7 @@ qa <- c("# Stage 3C QA: MICE Imputation [Sandbox]",
         "", "## Imputed Variables",
         paste(sprintf("- %s: %.1f%%", sapply(mice_vars, label_var), miss_pct[mice_vars]), collapse = "\n"),
         "", paste0("![Density plot](../figures/stage3c_imputation_density.png)"),
-        "", "> Stage 3C [Sandbox] complete.")
+        "", "> Stage 3C complete.")
 writeLines(qa, file.path(DIRS$qc_reports, "stage3c_imputation_qc.md"))
 
-log_msg("Stage 3C [Sandbox] complete")
+log_msg("Stage 3C complete")

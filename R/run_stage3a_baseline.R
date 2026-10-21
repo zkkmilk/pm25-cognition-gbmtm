@@ -3,7 +3,7 @@ initial_options <- commandArgs(trailingOnly = FALSE); file_arg <- initial_option
 source(file.path(SCRIPTS_DIR, "config.R"))
 
 log_msg("============================================================")
-log_msg("Stage 3A [Sandbox]: Baseline Profiling")
+log_msg("Stage 3A: Baseline Profiling")
 log_msg("============================================================")
 
 log_msg("Loading CHARLS 2011...")
@@ -120,4 +120,4 @@ log_msg(sprintf("Table 1: %d vars, P<0.05 (Bonferroni-adjusted): %d",
 
 write.csv(df_bl, file.path(DIRS$data_processed, "baseline_with_trajectory.csv"), row.names = FALSE)
 log_msg("Baseline saved")
-log_msg("Stage 3A [Sandbox] complete")
+log_msg("Stage 3A complete")

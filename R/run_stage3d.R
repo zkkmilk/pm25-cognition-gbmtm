@@ -3,7 +3,7 @@ initial_options <- commandArgs(trailingOnly = FALSE); file_arg <- initial_option
 source(file.path(SCRIPTS_DIR, "config.R"))
 
 log_msg("============================================================")
-log_msg("Stage 3D [Sandbox]: Post-imputation Diagnostics + Regression")
+log_msg("Stage 3D: Post-imputation Diagnostics + Regression")
 log_msg("============================================================")
 
 M <- STAGE3$mice_m; REF <- STAGE3$reference_group
@@ -53,7 +53,7 @@ model2_vars <- c(model1_vars, "smoking", "drinking", "sleep_night", "nap", "empl
 model3_vars <- c(model2_vars, "bmi", "self_rated_health", "adl_score", "depression_cesd",
   "arthritis", "cancer", "liver_disease", "kidney_disease", "digestive_disease",
   "mobility_impairment", "metabolic_burden", "cardio_cerebrovascular", "respiratory_burden")
-models <- list("Model1_人口学" = model1_vars, "Model2_行为社会" = model2_vars, "Model3_全模型" = model3_vars)
+models <- list("Model1_demographics" = model1_vars, "Model2_behavior_social" = model2_vars, "Model3_full model" = model3_vars)
 
 BINARY_ALL <- c("sex","marital_status","residence","smoking","drinking",
   "employment","solid_fuel","arthritis","cancer","liver_disease","kidney_disease",
@@ -160,7 +160,7 @@ write.csv(vif_result, file.path(DIRS$tables, "vif_post_imputation.csv"), row.nam
 log_msg("Generating forest plot with ggplot2...")
 library(ggplot2)
 
-forest_data <- all_results[["Model3_全模型"]]
+forest_data <- all_results[["Model3_full model"]]
 
 var_cat <- list(
   Demographics = c("Age","Sex","Education","Marital status","Residence","Employment"),
@@ -224,16 +224,16 @@ p_forest <- ggplot(forest_data, aes(x = OR, y = variable, color = plot_color)) +
 ggsave(file.path(DIRS$figures, "stage3d_forest_plot.png"),
   plot = p_forest, width = 14, height = 15, dpi = 300)
 
-qa <- c("# Stage 3D QA: Post-imputation Diagnostics + Regression [Sandbox]",
+qa <- c("# Stage 3D QA: Post-imputation Diagnostics + Regression",
         "", paste0("**Time**: ", format(Sys.time())),
         "", "## VIF (post-imputation)",
         sprintf("VIF > 5: %d variables", nrow(high_vif)),
         "", "## Model Summary",
-        sprintf("- M1: %d/%d significant", sum(all_results[["Model1_人口学"]]$significant), nrow(all_results[["Model1_人口学"]])),
-        sprintf("- M2: %d/%d significant", sum(all_results[["Model2_行为社会"]]$significant), nrow(all_results[["Model2_行为社会"]])),
-        sprintf("- M3: %d/%d significant", sum(all_results[["Model3_全模型"]]$significant), nrow(all_results[["Model3_全模型"]])),
+        sprintf("- M1: %d/%d significant", sum(all_results[["Model1_demographics"]]$significant), nrow(all_results[["Model1_demographics"]])),
+        sprintf("- M2: %d/%d significant", sum(all_results[["Model2_behavior_social"]]$significant), nrow(all_results[["Model2_behavior_social"]])),
+        sprintf("- M3: %d/%d significant", sum(all_results[["Model3_full model"]]$significant), nrow(all_results[["Model3_full model"]])),
         "", paste0("![Forest](../figures/stage3d_forest_plot.png)"),
-        "", "> Stage 3D [Sandbox] complete.")
+        "", "> Stage 3D complete.")
 writeLines(qa, file.path(DIRS$qc_reports, "stage3d_regression_qc.md"))
 
-log_msg("Stage 3D [Sandbox] complete")
+log_msg("Stage 3D complete")

@@ -232,7 +232,7 @@ get_region <- function(province_chinese) {
 
 log_msg("Config loaded: REF=2, region in MICE only.")
 log_msg(paste("Project root:", PROJECT_ROOT))
-log_msg(paste("Sandbox output:", SANDBOX_ROOT))
+log_msg(paste("output:", SANDBOX_ROOT))
 log_msg("Seed: 2026")
 
 LAB <- c(sex="Sex (male)", residence="Urban residence", smoking="Current smoking",

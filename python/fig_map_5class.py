@@ -1,4 +1,4 @@
-"""Fig 3 (5 类版). 数据源: DataV 100000_full（含台湾、港澳、南海诸岛 100000_JD）"""
+"""Fig 3. Source: DataV 100000_full boundaries (incl. 100000_JD South China Sea islands)"""
 import json
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
